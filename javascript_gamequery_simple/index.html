@@ -31,6 +31,9 @@
 			<h3>Something aside</h3>
 		</aside>
 		<article>
+			<div id="playground" >
+				In da playground
+			</div>
 			<header>
 				<h2>Your article heading</h2>
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor. Etiam ullamcorper lorem dapibus velit suscipit ultrices. Proin in est sed erat facilisis pharetra. Pellentesque auctor neque quis nisl lacinia id rutrum lacus venenatis.</p>
@@ -39,7 +42,10 @@
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor. Etiam ullamcorper lorem dapibus velit suscipit ultrices. Proin in est sed erat facilisis pharetra. Pellentesque auctor neque quis nisl lacinia id rutrum lacus venenatis.</p>	
 			<h3>A smaller heading</h3>
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor. Etiam ullamcorper lorem dapibus velit suscipit ultrices. Proin in est sed erat facilisis pharetra. Pellentesque auctor neque quis nisl lacinia id rutrum lacus venenatis.</p>
-			<footer>
+			ing: "Updating Change Sets for SVN Workspace".
+Selected SVN connector library is not available or cannot be loaded.
+If you selected native JavaHL connector, please check if binaries are available or install and select pure Java Subversion connector from the plug-in connectors update site.
+If connectors already installed then you can change <footer>
 			<h3>About the author</h3>
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor.</p>
 			</footer>
@@ -65,6 +71,27 @@ window.jQuery || document.write('<script src="js/libs/jquery-'+jQueryVersion+'.j
 	(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
 	g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
 	s.parentNode.insertBefore(g,s)}(document,'script'));
+	
+	
+	var playGround = $("#playground").playground({refreshRate: 60});
+
+	var myAnimation = new $.gameQuery.Animation({ imageURL: "./star.png" });
+	var sprite = playGround.addSprite("sprite1",{
+		animation: myAnimation, width: 1000, height: 1000
+		}
+	);
+	
+	var currScale = 2;
+	function gameLoop() {
+		var isEnded = false;
+		currScale -= 0.1;
+		$("#sprite1").scale(currScale);
+		return isEnded;
+	}
+	
+	playGround.registerCallback(gameLoop, 1);
+	
+	$.playground().startGame();
 </script>
 </body>
 </html>

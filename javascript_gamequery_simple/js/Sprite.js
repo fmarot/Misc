@@ -1,8 +1,6 @@
 
-Sprite = function(name, url, behaviours, initialWidth, initialHeight) {
-	this.image = new Image();
-	if (name !== undefined) this.name = name;
-	if (url !== undefined) this.image.src = url;
+Sprite = function(name, image, behaviours, initialWidth, initialHeight) {
+	this.image = image;
 	if (behaviours !== undefined) this.behaviours = behaviours;
 	
 	this.x = 0;

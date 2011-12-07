@@ -14,24 +14,25 @@
 <script type="application/javascript" >
 var canvas;
 var sprites = new Array(); 
+var keyboardImg;
+var starImg; 
 
 $(document).ready(function() {
 	canvas = document.getElementById("canvas");
-	var keyboard = new Keyboard(180, 430, 820, sprites);
+	
+	
+	keyboardImg = new Image();
+	keyboardImg.src = "images/Keyboard-1600.png"
+	
+	starImg = new Image();
+	starImg.src = "images/star.png"
+	
+	var keyboard = new Keyboard(starImg, 180, 430, 820, sprites);
+
 
 	animate();
 });
 
-var star = new Sprite('star', 'images/star.png', [goUp]);
-
-/*
-jwerty.key('O', function () {
-	star = new Sprite('star', 'images/star.png', [goUp], 30, 30);
-	star.x = 100;
-	star.y = 600;
-	sprites.push(star);
-});
-*/
 
 function addSprite(sprite) {
 	sprites.push(sprite);
@@ -52,9 +53,8 @@ function eraseBackground() {
 function drawBackground() {
 	var ctx = canvas.getContext("2d");
 	
-	var img = new Image();
-	img.src = "images/Keyboard-1600.png"
-	ctx.drawImage(img, 0, 200);
+
+	ctx.drawImage(keyboardImg, 0, 200);
 }
 
 function update() {

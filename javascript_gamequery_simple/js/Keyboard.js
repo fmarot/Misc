@@ -1,5 +1,5 @@
 
-Keyboard = function(AposX, AposY, PposX, sprites) {
+Keyboard = function(starImg, AposX, AposY, PposX, sprites) {
 	
 	// From A to P = 10 letters
 	var lineWidth = PposX - AposX;
@@ -12,7 +12,7 @@ Keyboard = function(AposX, AposY, PposX, sprites) {
 		
 
 		jwerty.key(currKey, function () {
-			star = new Sprite('star', 'images/star.png', [goUp], 30, 30);
+			star = new Sprite('star', starImg, [goUp], 30, 30);
 			star.x = initialSpritePosX;
 			star.y = initialSpritePosY;
 			//alert('creating sprite in '+initialSpritePosX+' '+initialSpritePosY+" "+sprites);

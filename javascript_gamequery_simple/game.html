@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Mael's game</title>
+</head>
+
+<script type="application/javascript" src="js/libs/jquery-1.6.2.js" ></script>
+<script type="application/javascript" src="js/libs/jwerty-0.3.0.js" ></script>
+
+<script type="application/javascript" src="js/Sprite.js" ></script>
+<script type="application/javascript" src="js/Keyboard.js" ></script>
+
+<script type="application/javascript" >
+var canvas;
+var sprites = new Array(); 
+
+$(document).ready(function() {
+	canvas = document.getElementById("canvas");
+	var keyboard = new Keyboard(180, 430, 820, sprites);
+
+	animate();
+});
+
+var star = new Sprite('star', 'images/star.png', [goUp]);
+
+/*
+jwerty.key('O', function () {
+	star = new Sprite('star', 'images/star.png', [goUp], 30, 30);
+	star.x = 100;
+	star.y = 600;
+	sprites.push(star);
+});
+*/
+
+function addSprite(sprite) {
+	sprites.push(sprite);
+}
+	
+function draw() {
+	var ctx = canvas.getContext("2d");
+	$.each(sprites, function(index, currSprite) { 
+		ctx.drawImage(currSprite.image, currSprite.x, currSprite.y, currSprite.sizeX, currSprite.sizeY);
+	});
+}
+
+function eraseBackground() {
+	var ctx = canvas.getContext("2d");
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+function drawBackground() {
+	var ctx = canvas.getContext("2d");
+	
+	var img = new Image();
+	img.src = "images/Keyboard-1600.png"
+	ctx.drawImage(img, 0, 200);
+}
+
+function update() {
+	$.each(sprites, function(index, currSprite) {
+		currSprite.update();
+	});
+	
+	var logInfo = ' ';
+	// Keep in sprites list only those still visibles
+	sprites = $.grep(sprites, function (currSprite, index) {
+		var isVisible = currSprite.isVisibleInClippingRectangle(canvas.width, canvas.height);
+		logInfo += isVisible + ' ';
+	    return isVisible;
+	});
+}
+
+function animate() {
+	eraseBackground();
+	drawBackground();
+	update();
+	draw();
+	window.requestNextAnimationFrame(animate);
+}
+
+window.requestNextAnimationFrame = (function(callback){
+    return window.requestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.oRequestAnimationFrame ||
+    window.msRequestAnimationFrame ||
+    function(callback){
+        window.setTimeout(callback, 1000 / 60);
+    };
+})();
+</script>
+
+
+<body>
+	<canvas id="canvas" width="1600" height="1000" />
+</body>
+</html>

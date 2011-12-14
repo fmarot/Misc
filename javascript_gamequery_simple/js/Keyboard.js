@@ -1,35 +1,20 @@
 
+
 Keyboard = function(starImg, AposX, AposY, PposX, sprites) {
 	
 	// From A to P = 10 letters
 	var lineWidth = PposX - AposX;
 	var linePosY = AposY;
-	var keysArray = new Array('a','z','e','r','t','y','u','i','o','p');
+	var keysArray = new Array('A','Z','E','R','T','Y','U','I','O','P');
 	var widthBetweenKeys = lineWidth / (keysArray.length - 1);
+	
+
 	$.each(keysArray, function(index, currKey) { 
+		var currentKey = keysArray[index];
 		var initialSpritePosX = AposX + (index * widthBetweenKeys);
 		var initialSpritePosY = linePosY;
-		
-
-		jwerty.key(currKey, function () {
-			star = new Sprite('star', starImg, [goUp], 30, 30);
-			star.x = initialSpritePosX;
-			star.y = initialSpritePosY;
-			//alert('creating sprite in '+initialSpritePosX+' '+initialSpritePosY+" "+sprites);
-			addSprite(star);	// FIXME: out reference !
-		});
+		keyToPositions[currentKey] = {x: initialSpritePosX, y: initialSpritePosY};
 	});
 	
 	return this;
 };
-/*
-Keyboard.prototype = {
-	isVisibleInClippingRectangle: function() {
-		;
-	},
-	
-	update : function() {
-		;
-	}
-};
-*/

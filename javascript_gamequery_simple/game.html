@@ -6,7 +6,8 @@
 </head>
 
 <script type="application/javascript" src="js/libs/jquery-1.6.2.js" ></script>
-<script type="application/javascript" src="js/libs/jwerty-0.3.0.js" ></script>
+<!-- <script type="application/javascript" src="js/libs/jwerty-0.3.0.js" ></script> -->
+<script type="application/javascript" src="js/libs/kberty.js" ></script>
 
 <script type="application/javascript" src="js/Sprite.js" ></script>
 <script type="application/javascript" src="js/Keyboard.js" ></script>
@@ -15,11 +16,12 @@
 var canvas;
 var sprites = new Array(); 
 var keyboardImg;
-var starImg; 
+var starImg;
+var keyToPositions = [];
+
 
 $(document).ready(function() {
 	canvas = document.getElementById("canvas");
-	
 	
 	keyboardImg = new Image();
 	keyboardImg.src = "images/Keyboard-1600.png"
@@ -29,10 +31,8 @@ $(document).ready(function() {
 	
 	var keyboard = new Keyboard(starImg, 180, 430, 820, sprites);
 
-
 	animate();
 });
-
 
 function addSprite(sprite) {
 	sprites.push(sprite);
@@ -52,21 +52,34 @@ function eraseBackground() {
 
 function drawBackground() {
 	var ctx = canvas.getContext("2d");
-	
-
 	ctx.drawImage(keyboardImg, 0, 200);
 }
 
 function update() {
+	
+	// Respond to input
+	var downKeys = kberty.downKeysList();
+	$.each(downKeys,  function(index, currKey) {
+			var currDownKey = downKeys[index];
+			var spritePosInfos = keyToPositions[currDownKey];
+			if ( spritePosInfos != undefined ) {
+				var fromX = spritePosInfos.x;
+				var fromY = spritePosInfos.y;
+				star = new Sprite('star', starImg, [goUp], 30, 30);
+				star.x = fromX;
+				star.y = fromY;
+				addSprite(star);	// FIXME: out reference !
+			}
+	});
+	
+	
 	$.each(sprites, function(index, currSprite) {
 		currSprite.update();
 	});
 	
-	var logInfo = ' ';
 	// Keep in sprites list only those still visibles
 	sprites = $.grep(sprites, function (currSprite, index) {
 		var isVisible = currSprite.isVisibleInClippingRectangle(canvas.width, canvas.height);
-		logInfo += isVisible + ' ';
 	    return isVisible;
 	});
 }

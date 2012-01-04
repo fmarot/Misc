@@ -1,7 +1,7 @@
 (function (global, exports) {
     var downKeys = new Array();	// list of keys currently donw
-    global.document.onkeydown = keyIsDown;
-    global.document.onkeyup = keyIsUp;
+    global.window.onkeydown = keyIsDown;
+    global.window.onkeyup = keyIsUp;
 
     function keyIsDown(event) {
     	var keyID = String.fromCharCode(event.keyCode);
@@ -26,6 +26,14 @@
 	
 		downKeysList: function () {
 			return downKeys;
+		},
+		
+		/** once a key is told to be down, the lib won't tell
+		 * it's down again until the given delay has elapsed.
+		 * It's used in order to avoid a single Keypress to be
+		 * handled as many keypress.  */
+		setGlobalRepeatDelay: function(delay) {
+			// TODO
 		}
 	};
 	
